@@ -18,15 +18,20 @@ var header = document.getElementById('main-header');
 // headerTitle.innerHTML = '<h3>Hello</h3>';
 header.style.borderBottom = 'solid 3px #000';
 
-var item = document.getElementsByClassName('title');
+// var item = document.getElementsByClassName('title');
 // console.log(item);
 // item[0].style.fontWeight = 'bold';
 // item[0].style.color = 'green';
-var items = document.getElementById('items');
-console.log(items);
-var listGroupItem = document.getElementsByClassName('list-group-item');
-console.log(listGroupItem);
-listGroupItem[2].style.backgroundColor = 'green';
-for(var i=0; i<listGroupItem.length; i++){
-    listGroupItem[i].style.fontWeight = 'bold';
-}
+// var items = document.getElementById('items');
+// console.log(items);
+// var listGroupItem = document.getElementsByClassName('list-group-item');
+// console.log(listGroupItem);
+// listGroupItem[2].style.backgroundColor = 'green';
+// for(var i=0; i<listGroupItem.length; i++){
+//     listGroupItem[i].style.fontWeight = 'bold';
+// }
+var li = document.getElementsByTagName('li');
+console.log(li);
+for(var i=0; i<li.length; i++){
+        li[i].style.color = 'red';
+    }
