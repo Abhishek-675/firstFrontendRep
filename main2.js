@@ -60,16 +60,29 @@ function onSubmit(e) {
   
       setTimeout(() => msg.remove(), 3000);
     } else {
-      const li = document.createElement('li');
+      let myObj = {
+        name: nameInput.value,
+        email: emailInput.value
+      };
 
-      localStorage.setItem('name', nameInput.value);
-      localStorage.setItem('email', emailInput.value);
-  
+      let myobj_serialized = JSON.stringify(myObj);
+
+      localStorage.setItem("myObj", myobj_serialized);
+
+      let myObj_deserialized = JSON.parse(localStorage.getItem("myObj"));
+
+      console.log(myObj_deserialized);
+
+      // localStorage.setItem('name', nameInput.value);
+      // localStorage.setItem('email', emailInput.value);
+
+      // const li = document.createElement('li');
+
       // li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
   
       // userList.appendChild(li);
   
-      nameInput.value = '';
-      emailInput.value = '';
+      // nameInput.value = '';
+      // emailInput.value = '';
     }
   }
