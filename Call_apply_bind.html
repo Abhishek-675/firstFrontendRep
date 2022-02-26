@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Apply and Bind</title>
+</head>
+<body>
+    <h1>Call Apply and Bind</h1>
+    <script>
+        
+        var obj = {num:2};
+        var obj2 = {num:5};
+        var addToThis = function(a,b,c){
+            return this.num + a + b + c;
+        }
+        console.log(addToThis.call(obj,1,2,3)); //call
+
+        var arr=[1,2,3];
+        console.log(addToThis.apply(obj,arr)); //apply
+
+        var bound=addToThis.bind(obj);
+        console.log(bound(1,2,3));             //bind
+
+        var student={age:20};
+        var print_age=function(){
+            return this.age;
+        }
+        var bound=print_age.bind(student);
+        console.log(bound());
+
+
+
+    </script>
+</body>
+</html>
