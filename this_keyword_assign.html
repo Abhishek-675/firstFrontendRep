@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this keyword</title>
+</head>
+<body>
+    <script>
+
+class student{
+
+    static count=0;
+
+    constructor(name,age,phone_number,board_marks){
+        this.name=name;
+        this.age=age;
+        this.phone_number=phone_number;
+        this.board_marks=board_marks;
+        student.countStudent();
+    }
+
+    static countStudent(){
+        return(student.count++);
+    }
+
+    eligible(){
+        if(this.board_marks>=40){
+            console.log(`${this.name} age ${this.age} is eligible`);
+        }
+        else if(this.board_marks<40){
+            console.log(`${this.name} age ${this.age} is not eligible`);
+        }
+    }
+}
+
+const jill=new student('jill',18,0,50);
+const john=new student('john',20,0,30);
+const jeery=new student('jeery',17,0,60);
+const andrew=new student('andrew',21,0,20);
+const justin=new student('justin',18,0,50);
+
+console.log(student.countStudent());
+
+jill.eligible();
+john.eligible();
+jeery.eligible();
+andrew.eligible();
+justin.eligible();
+
+    </script>
+</body>
+</html>
