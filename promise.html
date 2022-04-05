@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise</title>
+</head>
+<body>
+    <script>
+
+const posts=[
+    {title: 'post one', body:'this is post one'},
+    {title: 'post two', body: 'this is post two'}
+];
+
+function getPosts(){
+    setTimeout(()=>{
+        let output='';
+        posts.forEach((post,index)=>{
+            output+= `<li>${post.title}: ${post.body}</li>`;
+        });
+        document.body.innerHTML=output;
+    },1000);
+}
+
+function createPost(post){
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            posts.push(post);
+
+            const error=false;
+
+            if(!error){
+                resolve();
+            }else{
+                reject('Error: something went wrong');
+            }
+        },1500);
+    })
+    
+}
+
+// function deletePost(){
+//     return new Promise((resolve, reject)=>{
+
+//             if(posts.length>0){
+//                 console.log('deleting...');
+//                 setTimeout(()=>{
+//                     resolve();
+//                 },1000);
+                
+//             }else{
+//                 reject('Array is empty now');
+//             }
+//         });  
+// }
+
+function deletePost(){
+    return new Promise((resolve,reject)=>{
+        posts.pop();
+        let lastPost= document.querySelector('body').lastChild;
+        lastPost.parentNode.removeChild(lastPost);
+        resolve();
+        // if(posts.length!==0){
+        //     setTimeout(()=>{
+        //         resolve();
+        //     },1000);
+            
+        // }else{
+        //     reject();
+        // }
+    },2000);
+}
+
+
+
+// const timerId= setInterval(()=>{
+//     deletePost().then(()=>{
+//         posts.pop();
+//         let lastPost= document.querySelector('body').lastChild;
+//         lastPost.parentNode.removeChild(lastPost);
+//     })
+//     .catch(err=>{
+//         console.log(err);
+//         clearInterval(timerId);
+//     });
+// },2000);
+
+
+createPost({title:'post three', body:'this is post three'})
+.then(getPosts)
+.then(deletePost)
+.catch(err=>console.log(err));
+
+// createPost({title:'post four', body:'this is post four'})
+// .then(getPosts)
+// .catch(err=>console.log(err));
+
+
+    </script>
+</body>
+</html>
