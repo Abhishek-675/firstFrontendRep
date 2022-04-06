@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+</head>
+<body>
+    <h1>Using Crud crud & Async await</h1>
+    <form class="form" id="form-id">
+        <label>Enter Expense Amount</label>
+        <input type="number" class="expense" id="expense-id">
+        <label>Enter Description</label>
+        <input type="text" class="descrip" id="descrip-id">
+        <label>Choose a Category</label>
+        <select id="category">
+            <option value="Movies">Movies</option>
+            <option value="Food">Food</option>
+            <option value="Petrol">Petrol</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    <ul id="ul"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+    <script>
+        var form = document.getElementById('form-id');
+
+        form.addEventListener('submit', add);
+
+        async function add(e) {
+            e.preventDefault();
+            var expense = document.getElementById('expense-id').value;
+            var description = document.getElementById('descrip-id').value;
+            var category = document.getElementById('category').value;
+
+            let obj = {
+                expense1 : expense,
+                description1 : description,
+                category1 : category
+            }
+
+            try {
+                let response = await axios.post("https://crudcrud.com/api/73ac40772b8b49de97cb92337de7dce5/Data", obj);
+                if (!response) throw error;
+                console.log(response);
+            } 
+            catch(error) {
+                console.log(error);
+            }
+
+            showDataOnScreen(obj);
+        }
+
+        window.addEventListener("DOMContentLoaded", async () => {
+            try {
+                let response = await axios.get("https://crudcrud.com/api/73ac40772b8b49de97cb92337de7dce5/Data");
+                if (response) {
+                    console.log(response);
+
+                    for (var i=0; i<response.data.length; i++) {
+                        showDataOnScreen(response.data[i]);
+                    }  
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+
+        function showDataOnScreen(data) {
+            document.getElementById('expense-id').value = '';
+            document.getElementById('descrip-id').value = '';
+            document.getElementById('category').value = '';
+
+            const parentNode = document.getElementById('ul');
+            const childHTML = `<li id=${data._id}> ${data.expense1} - ${data.description1} - ${data.category1}
+                                    <button onclick=deleteData('${data._id}')> Delete Expense </button>
+                                    <button onclick=editData('${data.expense1}','${data.description1}','${data.category1}','${data._id}')> Edit Expense </button>
+                                </li>`
+            
+            parentNode.innerHTML = parentNode.innerHTML + childHTML;
+        }
+
+        function editData(expense, description, category, data1) {
+            document.getElementById('expense-id').value = expense;
+            document.getElementById('descrip-id').value = description;
+            document.getElementById('category').value = category;
+
+            deleteData(data1);
+        }
+
+        async function deleteData(data1) {
+            try {
+                let response = await axios.delete(`https://crudcrud.com/api/73ac40772b8b49de97cb92337de7dce5/Data/${data1}`);
+                if (response) {
+                    removeDataFromScreen(data1);
+                }
+            } 
+            catch(error) {
+                console.log(error);
+            }
+        }
+
+        function removeDataFromScreen(data1) {
+            const parentNode = document.getElementById('ul');
+            const toBeDeleted = document.getElementById(data1);
+            if (toBeDeleted) {
+                parentNode.removeChild(toBeDeleted);
+            }
+        }
+    </script>
+</body>
+</html>
