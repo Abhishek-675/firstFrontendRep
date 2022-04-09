@@ -1,0 +1,20 @@
+{
+  "name": "node-js-basics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app-task9.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app-task9.js",
+    "start-server": "node app-task9.js"
+  },
+  "author": "Abhishek",
+  "license": "ISC",
+  "devDependencies": {
+    "nodeman": "^1.1.2"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "nodemon": "^2.0.15"
+  }
+}
